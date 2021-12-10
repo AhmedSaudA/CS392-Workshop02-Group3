@@ -1,22 +1,13 @@
-sudo: false
-
-
-
 language: node_js
-
 node_js:
-  - node
-
-install:
-  -npm ci 
-
+  - "8"
+cache: npm
 script:
-  - npm run lint
-  - npm run test:coveralls
-
-notifications:
-  email: false
-  
-
-
-
+  - echo 'Build starts!!'
+  - echo 'Installing Deps!'
+  - echo 'Testing!'
+install:
+  - npm install -g firebase-tools
+after_success:
+  - npm build
+  - firebase deploy --token "$GITHUB_TOKEN"
